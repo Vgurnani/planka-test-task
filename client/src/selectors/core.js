@@ -1,10 +1,11 @@
-import { createSelector } from 'redux-orm';
-import isUndefined from 'lodash/isUndefined';
+import { createSelector } from "redux-orm";
+import isUndefined from "lodash/isUndefined";
 
-import orm from '../orm';
-import Config from '../constants/Config';
+import orm from "../orm";
+import Config from "../constants/Config";
 
-export const isCoreInitializingSelector = ({ core: { isInitializing } }) => isInitializing;
+export const isCoreInitializingSelector = ({ core: { isInitializing } }) =>
+  isInitializing;
 
 const nextPosition = (items, index, excludedId) => {
   const filteredItems = isUndefined(excludedId)
@@ -41,8 +42,12 @@ export const nextBoardPositionSelector = createSelector(
       return projectModel;
     }
 
-    return nextPosition(projectModel.getOrderedBoardsQuerySet().toRefArray(), index, excludedId);
-  },
+    return nextPosition(
+      projectModel.getOrderedBoardsQuerySet().toRefArray(),
+      index,
+      excludedId
+    );
+  }
 );
 
 export const nextListPositionSelector = createSelector(
@@ -57,8 +62,12 @@ export const nextListPositionSelector = createSelector(
       return boardModel;
     }
 
-    return nextPosition(boardModel.getOrderedListsQuerySet().toRefArray(), index, excludedId);
-  },
+    return nextPosition(
+      boardModel.getOrderedListsQuerySet().toRefArray(),
+      index,
+      excludedId
+    );
+  }
 );
 
 export const nextCardPositionSelector = createSelector(
@@ -73,6 +82,10 @@ export const nextCardPositionSelector = createSelector(
       return listModel;
     }
 
-    return nextPosition(listModel.getOrderedFilteredCardsModelArray(), index, excludedId);
-  },
+    return nextPosition(
+      listModel.getOrderedFilteredCardsModelArray(),
+      index,
+      excludedId
+    );
+  }
 );

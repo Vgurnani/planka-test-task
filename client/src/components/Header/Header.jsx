@@ -1,14 +1,14 @@
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { Link } from 'react-router-dom';
-import { Icon, Menu } from 'semantic-ui-react';
+import React, { useCallback } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { Link } from "react-router-dom";
+import { Icon, Menu } from "semantic-ui-react";
 
-import Paths from '../../constants/Paths';
-import NotificationsPopup from './NotificationsPopup';
-import UserPopup from '../UserPopup';
+import Paths from "../../constants/Paths";
+import NotificationsPopup from "./NotificationsPopup";
+import UserPopup from "../UserPopup";
 
-import styles from './Header.module.scss';
+import styles from "./Header.module.scss";
 
 const Header = React.memo(
   ({
@@ -32,7 +32,10 @@ const Header = React.memo(
     return (
       <div className={styles.wrapper}>
         {!project && (
-          <Link to={Paths.ROOT} className={classNames(styles.logo, styles.title)}>
+          <Link
+            to={Paths.ROOT}
+            className={classNames(styles.logo, styles.title)}
+          >
             Planka
           </Link>
         )}
@@ -50,7 +53,7 @@ const Header = React.memo(
                 className={classNames(
                   styles.item,
                   canEditProject && styles.itemHoverable,
-                  styles.title,
+                  styles.title
                 )}
                 onClick={handleProjectSettingsClick}
               >
@@ -67,16 +70,38 @@ const Header = React.memo(
                 <Icon fitted name="users" />
               </Menu.Item>
             )}
-            <NotificationsPopup items={notifications} onDelete={onNotificationDelete}>
-              <Menu.Item className={classNames(styles.item, styles.itemHoverable)}>
+
+            <Menu.Item>
+              <Link
+                to={Paths.USERS}
+                className={classNames(styles.item, styles.itemHoverable)}
+              >
+                Users List
+              </Link>
+            </Menu.Item>
+
+            <NotificationsPopup
+              items={notifications}
+              onDelete={onNotificationDelete}
+            >
+              <Menu.Item
+                className={classNames(styles.item, styles.itemHoverable)}
+              >
                 <Icon fitted name="bell" />
                 {notifications.length > 0 && (
-                  <span className={styles.notification}>{notifications.length}</span>
+                  <span className={styles.notification}>
+                    {notifications.length}
+                  </span>
                 )}
               </Menu.Item>
             </NotificationsPopup>
-            <UserPopup onSettingsClick={onUserSettingsClick} onLogout={onLogout}>
-              <Menu.Item className={classNames(styles.item, styles.itemHoverable)}>
+            <UserPopup
+              onSettingsClick={onUserSettingsClick}
+              onLogout={onLogout}
+            >
+              <Menu.Item
+                className={classNames(styles.item, styles.itemHoverable)}
+              >
                 {user.name}
               </Menu.Item>
             </UserPopup>
@@ -84,7 +109,7 @@ const Header = React.memo(
         </Menu>
       </div>
     );
-  },
+  }
 );
 
 Header.propTypes = {

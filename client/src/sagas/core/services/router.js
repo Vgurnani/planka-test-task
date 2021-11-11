@@ -1,32 +1,32 @@
-import { call, put, select, take } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+import { call, put, select, take } from "redux-saga/effects";
+import { push } from "connected-react-router";
 
-import request from '../request';
+import request from "../request";
 import {
   currentBoardSelector,
   isCoreInitializingSelector,
   notificationIdsForCurrentCardSelector,
   pathsMatchSelector,
-} from '../../../selectors';
-import { handleLocationChange } from '../../../actions';
-import api from '../../../api';
-import ActionTypes from '../../../constants/ActionTypes';
-import Paths from '../../../constants/Paths';
+} from "../../../selectors";
+import { handleLocationChange } from "../../../actions";
+import api from "../../../api";
+import ActionTypes from "../../../constants/ActionTypes";
+import Paths from "../../../constants/Paths";
 
 export function* goToRootService() {
   yield put(push(Paths.ROOT));
 }
 
 export function* goToProjectService(projectId) {
-  yield put(push(Paths.PROJECTS.replace(':id', projectId)));
+  yield put(push(Paths.PROJECTS.replace(":id", projectId)));
 }
 
 export function* goToBoardService(boardId) {
-  yield put(push(Paths.BOARDS.replace(':id', boardId)));
+  yield put(push(Paths.BOARDS.replace(":id", boardId)));
 }
 
 export function* goToCardService(cardId) {
-  yield put(push(Paths.CARDS.replace(':id', cardId)));
+  yield put(push(Paths.CARDS.replace(":id", cardId)));
 }
 
 export function* handleLocationChangeService() {
@@ -91,7 +91,9 @@ export function* handleLocationChangeService() {
       }
 
       if (pathsMatch.path === Paths.CARDS) {
-        const notificationIds = yield select(notificationIdsForCurrentCardSelector);
+        const notificationIds = yield select(
+          notificationIdsForCurrentCardSelector
+        );
 
         if (notificationIds && notificationIds.length > 0) {
           try {
@@ -101,7 +103,7 @@ export function* handleLocationChangeService() {
               notificationIds,
               {
                 isRead: true,
-              },
+              }
             ));
           } catch (error) {} // eslint-disable-line no-empty
         }
@@ -125,7 +127,7 @@ export function* handleLocationChangeService() {
       cardLabels,
       tasks,
       attachments,
-      notifications,
-    ),
+      notifications
+    )
   );
 }

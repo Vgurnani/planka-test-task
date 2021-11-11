@@ -1,24 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
+import React from "react";
+import PropTypes from "prop-types";
+import { Provider } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
 
-import Paths from '../constants/Paths';
-import LoginContainer from '../containers/LoginContainer';
-import CoreWrapperContainer from '../containers/CoreWrapperContainer';
-import NotFound from './NotFound';
+import Paths from "../constants/Paths";
+import LoginContainer from "../containers/LoginContainer";
+import CoreWrapperContainer from "../containers/CoreWrapperContainer";
+import NotFound from "./NotFound";
 
-import 'react-datepicker/dist/react-datepicker.css';
-import '../lib/custom-ui/styles.css';
+import "react-datepicker/dist/react-datepicker.css";
+import "../lib/custom-ui/styles.css";
 
-import '../styles.module.scss';
+import "../styles.module.scss";
+// import UsersList from "./Users/UsersList";
 
 const Root = ({ store, history }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
         <Route exact path={Paths.LOGIN} component={LoginContainer} />
+        {/* <Route exact path={Paths.USERS} component={UsersList} /> */}
+        <Route exact path={Paths.USERS} component={CoreWrapperContainer} />
         <Route exact path={Paths.ROOT} component={CoreWrapperContainer} />
         <Route exact path={Paths.PROJECTS} component={CoreWrapperContainer} />
         <Route exact path={Paths.BOARDS} component={CoreWrapperContainer} />

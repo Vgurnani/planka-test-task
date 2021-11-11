@@ -1,10 +1,13 @@
-import { createSelector as createReselectSelector } from 'reselect';
-import { createSelector as createReduxOrmSelector } from 'redux-orm';
+/* eslint-disable react/jsx-filename-extension */
+import { createSelector as createReselectSelector } from "reselect";
+import { createSelector as createReduxOrmSelector } from "redux-orm";
 
-import orm from '../orm';
-import { currentUserIdSelector } from './user';
-import matchPaths from '../utils/match-paths';
-import Paths from '../constants/Paths';
+import orm from "../orm";
+import { currentUserIdSelector } from "./user";
+import matchPaths from "../utils/match-paths";
+import Paths from "../constants/Paths";
+// eslint-disable-next-line import/no-cycle
+// import UsersListContainer from "../containers/UsersListContainer";
 
 export const pathnameSelector = ({
   router: {
@@ -12,14 +15,16 @@ export const pathnameSelector = ({
   },
 }) => pathname;
 
-export const pathsMatchSelector = createReselectSelector(pathnameSelector, (pathname) =>
-  matchPaths(pathname, Object.values(Paths)),
+export const pathsMatchSelector = createReselectSelector(
+  pathnameSelector,
+  (pathname) => matchPaths(pathname, Object.values(Paths))
 );
 
 export const pathSelector = createReduxOrmSelector(
   orm,
   pathsMatchSelector,
   (state) => currentUserIdSelector(state),
+  // eslint-disable-next-line no-unused-vars
   ({ Project, Board, Card }, pathsMatch, currentUserId) => {
     if (pathsMatch) {
       switch (pathsMatch.path) {
@@ -44,6 +49,7 @@ export const pathSelector = createReduxOrmSelector(
             projectId: projectModel.id,
           };
         }
+
         case Paths.BOARDS: {
           const boardModel = Board.withId(pathsMatch.params.id);
           const projectModel = boardModel && boardModel.project;
@@ -98,10 +104,14 @@ export const pathSelector = createReduxOrmSelector(
             projectId: projectModel.id,
           };
         }
+
+        case Paths.USERS:
+          return { userPath: "true" };
+
         default:
       }
     }
 
     return {};
-  },
+  }
 );

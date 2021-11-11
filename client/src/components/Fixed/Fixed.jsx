@@ -1,19 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import HeaderContainer from "../../containers/HeaderContainer";
+import ProjectContainer from "../../containers/ProjectContainer";
+import BoardActionsContainer from "../../containers/BoardActionsContainer";
+import styles from "./Fixed.module.scss";
+import UsersListContainer from "../../containers/UsersListContainer";
 
-import HeaderContainer from '../../containers/HeaderContainer';
-import ProjectContainer from '../../containers/ProjectContainer';
-import BoardActionsContainer from '../../containers/BoardActionsContainer';
+// eslint-disable-next-line react/prop-types
+const Fixed = ({ projectId, board, userPath }) => {
+  return (
+    <div className={styles.wrapper}>
+      <HeaderContainer />
+      {projectId && <ProjectContainer />}
+      {board && !board.isFetching && <BoardActionsContainer />}
 
-import styles from './Fixed.module.scss';
-
-const Fixed = ({ projectId, board }) => (
-  <div className={styles.wrapper}>
-    <HeaderContainer />
-    {projectId && <ProjectContainer />}
-    {board && !board.isFetching && <BoardActionsContainer />}
-  </div>
-);
+      {userPath && <UsersListContainer />}
+    </div>
+  );
+};
 
 Fixed.propTypes = {
   projectId: PropTypes.string,
